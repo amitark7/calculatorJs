@@ -39,45 +39,45 @@ function compute(expression) {
     }
 
     //Some temporary variable to store backward value and foward value of Operators.
-    let temp = "";
-    let temp1 = "";
-    let temp2 = "";
+    let tempOPerands = "";
+    let backWardOperand = "";
+    let forWardOperands = "";
 
     //Find Backward Operands of Operators.
     for (
-      let k = index - 1;
-      (k >= 0 && expression.charAt(k) >= "0" && expression.charAt(k) <= "9") ||
-      expression.charAt(k) === "." ||
-      (expression.charAt(k) === "-" && k === 0);
-      k--
+      let backIterator = index - 1;
+      (backIterator >= 0 &&
+        expression.charAt(backIterator) >= "0" &&
+        expression.charAt(backIterator) <= "9") ||
+      expression.charAt(backIterator) === "." ||
+      (expression.charAt(backIterator) === "-" && backIterator === 0);
+      backIterator--
     ) {
-      temp += expression.charAt(k);
-      backIndex = k;
+      tempOPerands += expression.charAt(backIterator);
+      backIndex = backIterator;
     }
 
     //Reverse Backward Operands and store in temp1 after got Backward Operands beacause when we traverse backward of Operators we got reverse number.
-    temp1 = temp.split("").reverse().join("");
+    backWardOperand = tempOPerands.split("").reverse().join("");
 
     //To find Forward Operands of Operators.
     for (
-      let k = index + 1;
-      (k < expression.length &&
-        expression.charAt(k) >= "0" &&
-        expression.charAt(k) <= "9") ||
-      expression.charAt(k) === "." ||
-      (expression.charAt(k) === "-" && k === 0);
-      k++
+      let forwardIterator = index + 1;
+      (forwardIterator < expression.length &&
+        expression.charAt(forwardIterator) >= "0" &&
+        expression.charAt(forwardIterator) <= "9") ||
+      expression.charAt(forwardIterator) === "." ||
+      (expression.charAt(forwardIterator) === "-" && forwardIterator === 0);
+      forwardIterator++
     ) {
-      temp2 += expression.charAt(k);
-      forwardIndex = k;
+      forWardOperands += expression.charAt(forwardIterator);
+      forwardIndex = forwardIterator;
     }
+    //Convert String to Number.
     try {
-      //Convert String to Number.
-      operand1 = parseFloat(temp1);
-      operand2 = parseFloat(temp2);
-    } catch (error) {
-      console.log(error);
-    }
+      operand1 = parseFloat(backWardOperand);
+      operand2 = parseFloat(forWardOperands);
+    } catch (error) {}
 
     //Perform operation according to Operators
     switch (expression.charAt(index)) {
@@ -100,7 +100,7 @@ function compute(expression) {
 
     //Check forward and backward index if it not equal to zero then perform operation otherwise simply we break the Outer loop.
     if (backIndex !== 0 || forwardIndex !== 0) {
-      let res = result.toString();
+      const res = result.toString();
       expression =
         expression.substring(0, backIndex) +
         res +
@@ -130,8 +130,8 @@ function compute(expression) {
 
 let lastOperand = "";
 const buttonClick = (value) => {
-  let myOperator = ["+", "-", "*", "/"];
-  let firstOperator = ["+", "*", "/"];
+  const myOperator = ["+", "-", "*", "/"];
+  const firstOperator = ["+", "*", "/"];
 
   //Check first number only put - and another operator not put as first digit.
   if (totalExp.length === 0 && firstOperator.includes(value)) {
@@ -153,11 +153,9 @@ const buttonClick = (value) => {
 
       //Checking double dot
       if (value === "." && lastOperand.includes(".")) {
-        console.log("Dot Check");
         return;
       }
       totalExp += value;
-      console.log("Last Line");
     } else {
       if (myOperator.includes(totalExp.slice(-1))) {
         lastOperand = "";
@@ -187,13 +185,10 @@ const resultClick = () => {
     inputValue.value = "Not a number";
   } else {
     if (inputValue.value) {
-      console.log(inputValue.value);
       let result = String(compute(String(inputValue.value)));
       result.includes(".")
         ? (inputValue.value = Number(result).toFixed(2))
         : (inputValue.value = result);
-    } else {
-      console.log("Please Enter New Expression");
     }
   }
 };
