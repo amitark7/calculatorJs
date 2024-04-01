@@ -193,7 +193,7 @@ const resultClick = () => {
         ? (inputValue.value = Number(result).toFixed(2))
         : (inputValue.value = result);
     } else {
-      console.log("Please Enter Expression");
+      console.log("Please Enter New Expression");
     }
   }
 };
