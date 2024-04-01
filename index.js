@@ -1,7 +1,7 @@
 let totalExp = "";
 
 let inputValue = document.getElementById("input-box");
-function precendence(operator) {
+function getPrecendence(operator) {
   if (operator === "*" || operator === "/") {
     return 3;
   } else if (operator === "+" || operator === "-") {
@@ -32,9 +32,9 @@ function compute(expression) {
       }
 
       //Find index of Higher precendence operator and assign into index.
-      if (precendence(expression.charAt(i)) > priority) {
+      if (getPrecendence(expression.charAt(i)) > priority) {
         index = i;
-        priority = precendence(expression.charAt(i));
+        priority = getPrecendence(expression.charAt(i));
       }
     }
 
