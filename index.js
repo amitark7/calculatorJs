@@ -1,6 +1,6 @@
 let totalExp = "";
 
-let inputValue = document.querySelector(".input-box");
+let inputValue = document.getElementById("input-box");
 function precendence(operator) {
   if (operator === "*" || operator === "/") {
     return 3;
